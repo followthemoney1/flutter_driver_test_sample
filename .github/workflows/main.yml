@@ -1,9 +1,25 @@
 name: Flutter WorkFlow
 
-on: [pull_request, workflow_dispatch]
+on:
+  push:
+   branches: [dev]
+    
+  pull_request: 
+    types: [opened, edited, reopened, synchronize]
+    branches: 
+     - 'release/*'
+     - 'dev*'
+     - 'fix/*'
+     - 'task/*'
+     - 'bug/*'
+     - 'feature/*'
+     - 'story/*'
+     - 'epic/*'
+     - 'dev*'
+
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
