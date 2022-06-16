@@ -60,10 +60,7 @@ jobs:
         id: run_path
         run: cd .github/ && ls && cd scripts && ls && sudo bash generate-markdown.sh
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: test/failures/
+    
       # - name: Just empty comment
       #   uses: peter-evans/find-comment@v1
       #   id: fc
@@ -77,7 +74,16 @@ jobs:
       #   body: ${{ steps.run_path.outputs.result }}
       #   with:
       #     token: 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 #${{ secrets.PAT }}
-          
+      
+      #upload artifacts
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: my-artifact
+      #     path: test/failures/
+      - uses: actions/upload-artifact@v2-preview
+        with:
+          name: cypress-screenshots
+          path: test/failures/*
      
      
             
