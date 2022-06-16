@@ -83,7 +83,7 @@ jobs:
       - uses: actions/upload-artifact@v2-preview
         with:
           name: cypress-screenshots
-          path: test/failures/*
+          path: test/failures/*.png
      
      
             
