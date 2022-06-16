@@ -101,11 +101,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+              key: const ValueKey("text"),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: const ValueKey("button"),
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),

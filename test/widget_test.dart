@@ -9,22 +9,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_driver_test_sample/main.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('GoldenBuilder', () {
+    const widget = MyHomePage(
+      title: '2222',
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    GoldenToolkit.runWithConfiguration(
+      () => {
+        testGoldens('Counter increments smoke test', (WidgetTester tester) async {
+          final builder = DeviceBuilder()
+            ..overrideDevicesForAllScenarios(devices: [
+              // Device.phone,
+              Device.iphone11,
+              // Device.tabletPortrait,
+              // Device.tabletLandscape,
+            ])
+            ..addScenario(
+              widget: widget,
+              name: 'default page',
+            )
+            ..addScenario(
+              widget: widget,
+              name: 'increase',
+              onCreate: (key) async {
+                final button = find.descendant(
+                  of: find.byKey(key),
+                  matching: find.byKey(const ValueKey("button")),
+                );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+                // Verify that our counter starts at 0.
+                expect(button, findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+                // Tap the '+' icon and trigger a frame.
+                await tester.tap(button);
+                await tester.pump();
+
+                // Verify that our counter has incremented.
+                expect(find.text('1'), findsOneWidget);
+              },
+            );
+          // Build our app and trigger a frame.
+          await tester.pumpDeviceBuilder(builder);
+
+          await screenMatchesGolden(tester, 'flutter_demo_page_multiple_scenarios');
+        }),
+      },
+      config: GoldenToolkit.configuration.copyWith(enableRealShadows: true),
+    );
   });
 }

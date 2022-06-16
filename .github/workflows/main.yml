@@ -19,34 +19,36 @@ on:
 
 jobs:
   build:
+    # runs-on: macos-latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '11'
+      # - name: Install Java
+      #   uses: actions/setup-java@v2
+      #   with:
+      #     distribution: 'zulu'
+      #     java-version: '11'
 
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.0.1'
-          channel: 'stable'
+      # - name: Install Flutter
+      #   uses: subosito/flutter-action@v2
+      #   with:
+      #     flutter-version: '3.0.1'
+      #     channel: 'stable'
       
-      - name: Flutter Doctor
-        run: flutter doctor -v
+      # - name: Flutter Doctor
+      #   run: flutter doctor -v
         
-      - name: Install dependencies
-        run: flutter pub get
+      # - name: Install dependencies
+      #   run: flutter pub get
 
-      - name: Run Integration Tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: flutter drive --target=test_driver/main.dart --driver=test_driver/main_test.dart
+      # - name: Run Integration Tests
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 31
+      #     target: google_atd
+      #     script: flutter drive --target=test_driver/main.dart --driver=test_driver/main_test.dart
 
       # - name: Upload Screenshoots
       #   uses: peter-evans/create-or-update-comment@v2
@@ -54,6 +56,29 @@ jobs:
       #     issue-number: ${{github.event.pull_request.number}}
       #     body: echo $(./github/scripts/generate-markdown.sh)
 
-      - name: Upload Screenshots
-        run: echo $(./github/scripts/generate-markdown.sh)
+      - name: Run echo path
+        id: run_path
+        run: cd .github/ && ls && cd scripts && ls && sudo bash generate-markdown.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: test/failures/
+      # - name: Just empty comment
+      #   uses: peter-evans/find-comment@v1
+      #   id: fc
+      #   with:
+      #     issue-number: ${{ github.event.pull_request.number }}
+      #     comment-author: 'github-actions[bot]'
+      #     body-includes: This comment was written by a bot!
+
+      # - name: Make a comment
+      #   uses: peter-evans/create-or-update-comment@v2
+      #   body: ${{ steps.run_path.outputs.result }}
+      #   with:
+      #     token: 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 #${{ secrets.PAT }}
+          
+     
+     
+            
         
