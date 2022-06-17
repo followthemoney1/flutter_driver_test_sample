@@ -80,6 +80,9 @@ jobs:
       #     comment-id: 322432 #${{ github.event.comment.id }}
       #     reactions: eyes
 
+      - name: Download
+        run: |
+          wget https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v2
@@ -91,9 +94,11 @@ jobs:
             Commit hello message
             ${{ steps.run_path.outputs.result }}
             ${{ steps.upload_artifacts.outputs.result }}
-            ![fjhwfj](https://pbs.twimg.com/media/FVYIUHtVEAExkGa?format=jpg&name=medium)
 
-            <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+            ![test1](GitHub-Mark.png)
+            ![test2](./GitHub-Mark.png)
+
+           # <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
             
