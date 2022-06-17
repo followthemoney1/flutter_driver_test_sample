@@ -18,9 +18,13 @@ on:
      - 'dev*'
 
 jobs:
+  job_id:
+      permissions:
+        contents: 'read'
+        id-token: 'write'
   build:
-    # runs-on: macos-latest
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    # runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -83,7 +87,32 @@ jobs:
       # - name: Download
       #   run: |
       #     wget https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-      
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          # workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          # service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+          credentials_json: |
+            {
+              "type": "service_account",
+              "project_id": "project-8198811325594817572",
+              "private_key_id": "07a4629f0d1bf4c8e7d649f41da03a3206a96e1b",
+              "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxmh6TeIAfTNky\nL9anvrc0a07BouujrzjX+TGxxFVGT/NSobLBAW/KXI5XW6FtzsUg/AtbH6D4CimW\nuAsWa8IUAjXRnHgmcudfkdu+du8rXGBX8azTgXG8JAfSyJ31TzzGIvKkBOc5uCXv\nvAVo4Zr1c3saB0ctvh2yaQmsnRq2xqfUH4t8irmfkWkR/2jiFdKoqbvZWbXRHD+z\nhcQ1tpDhJzYEQPLZB541EcrUpgpTNgNVUfqFgMX4zIGsh2MaiBy0osOCJt1dI0P3\n7I6tBe9ht1ouXGgt8T8CdOX3feQNDPisJ+zpoHQlknWIP7TP8lUD5SfZ259IQyIm\n1KoTKui1AgMBAAECggEAKBIYVPiKm8VIeejOOyGuDy8o4UqDdPZrUltAiZW9EbSn\nNx0RijdrRBKW8QHVDcPpuTP00fX0aRJN6NoUclYUv1PyVZ1ChJZHOspbdIE8HCHn\nAOCfuEbL5QGSHE40SW07zo6DBVuv2deBA7J92/iO8FNCUpCS0DDFXYQScTYvGU6f\nlPfINT+MfSQsFljt42RSZZTV7rgzyZCtHVko5ob2Lp1FwTXRg3oMnKnwOli+icuX\nR8cJ40Cu+56jXiAYb98s2MsQguOwJUF8vuKGinYFSt3iLO8N/gXRThrg7qhCMGxd\nPsKivOgwSfoR3MoXRjfR9+TUDT2zbLVOCyGNILxvXwKBgQDjIfjV9D685noPzyIW\nmLPltmUg3hYfF+tDTIhZC9AUSDYsyD80AFhpIa44MrCZKmqS/O0Csb5yXfBzA8Pu\nZBkBvj9Nqx63aJOBW+SODucVzRH/WVIvtJ/SJtPMVKgtGk9vodLLCQC1a69zF3B3\n0P6sBA+4zt8OxzSbPcXGYeWe1wKBgQDILJvqairoDEKwI0+nKsuZhClPokxiOblv\nmmnoIo2mTagHbyPHdpZci7+puS9Ls6kmIo//NMfI543zEPaFEL7sbOgkfsZgDxvg\nACyT3Z+09O37hKSB6ijPy3+8t1JR0b2edFnvzqd/dhLme4KDovlwgv4YMMtDOFZ5\n0GuExLq/UwKBgF5w17iOsC93XbWJGNFweQzAxFfgQC55kZcQEXmFEeX9CJmiQbVr\nl1dPa9NuMEPfgSTRCfOe2GNRcBNCs4tCD6vL4SJ4TnNQhlS5UtVGmQtVk3ArQaMY\nZYPKJTLG2I64a+Ms1Csb+TF2LyOZ0WfgfKQlpCvhyJmqdtM94ihUuFdNAoGAcCEE\n6ae1By0vAgmVqdeAGyt8FJ6eWPtq04hUwPLyE/E2KYvpJ+dWzNp/b2xLgQVPwAvm\nS5fePbzvt/ONk/ZQbJGI7ECTkOWFwNF4JxAjUTNOR/ECUb/AQr4EfMrX8vshU6xr\nYLiK/QxABBm1f1WAkrTd7uEOS0Y4sp28TLACx/8CgYBKEKO89t4GaZro9rMYG18Q\n8WQGp7u+SiNMAILtMZFYyT1GYOwasAVZ/zshLW/umQyBja7NwVSERWg40I87ame5\naSdFw+9iHQkwzieXnNuxWAaP7NPWiTayAzxpe5asuOtNe37c52NvV/3MAPgyHIj1\n3nvfnvKDLREBqCpLM3EnZw==\n-----END PRIVATE KEY-----\n",
+              "client_email": "firebase-adminsdk-z9ttn@project-8198811325594817572.iam.gserviceaccount.com",
+              "client_id": "103382864227193570030",
+              "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+              "token_uri": "https://oauth2.googleapis.com/token",
+              "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+              "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-z9ttn%40project-8198811325594817572.iam.gserviceaccount.com"
+            }
+
+
+      - id: 'upload-folder'
+        uses: 'google-github-actions/upload-cloud-storage@v0'
+        with:
+          path: '~/flutter_driver_test_sample/test/failures'
+          destination: 'undeground-ji2'
+
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v2
         with:
@@ -95,6 +124,7 @@ jobs:
             ${{ steps.run_path.outputs.result }}
             ${{ steps.upload_artifacts.outputs.result }}
 
+            ${{ env.payload.number }}
             ![test3](test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
             ![test4](~/test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
             ![test2](~/flutter_driver_test_sample/test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
@@ -103,13 +133,3 @@ jobs:
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
       
-      - name: Hyi
-        run: |
-          sleep 100000000000
-
-
-      - name: echo repo
-        run: echo "$GITHUB.REPOSITORY"
-      
-      - name: echo owner
-        run: echo "$GITHUB.REPOSITORY_OWNER"
