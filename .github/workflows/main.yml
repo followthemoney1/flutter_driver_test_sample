@@ -94,9 +94,10 @@ jobs:
      
       - name: Make a comment
         uses: peter-evans/create-or-update-comment@v2
-        # body: ${{ steps.images_uploads.outputs.imgur_urls }}
-        body: Commit hello message
         with:
+          # body: ${{ steps.images_uploads.outputs.imgur_urls }}
+          body: |
+            Commit hello message
           token: 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 #${{ secrets.PAT }}
             
         
