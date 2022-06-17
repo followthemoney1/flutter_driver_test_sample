@@ -88,13 +88,22 @@ jobs:
             }
 
 
-      - name: Upload Files to GS
+      - name: Upload files to GS
         id: 'upload-folder'
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
           path: 'test/failures'
-          destination: 'undeground-ji2'
-       
+          destination: 'undeground-ji2/${{ github.event.head_commit.id }}'
+      
+      - name: Get comment body
+        id: get-comment-body
+        run: |
+          body="$(cat /test/failures/files.txt)"
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}" 
+          echo "::set-output name=body::$body"
+
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v2
         with:
@@ -103,14 +112,7 @@ jobs:
           issue-number: 1 #${{ github.event.pull_request.number }}
           body: |
             Commit hello message
-            ${{ steps.run_path.outputs.result }}
-            ${{ steps.upload_artifacts.outputs.result }}
-
-            ${{ github.event.payload.number }}
-            ![test3](test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
-            ![test4](~/test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
-            ![test2](~/flutter_driver_test_sample/test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
-
+            ${{ steps.get-comment-body.outputs.body }}
           
            # <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
           # token: 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 #${{ secrets.PAT }}
