@@ -56,35 +56,17 @@ jobs:
       #     issue-number: ${{github.event.pull_request.number}}
       #     body: echo $(./github/scripts/generate-markdown.sh)
 
-      - name: Run echo path
-        id: run_path
-        run: cd .github/ && ls && cd scripts && ls && sudo bash generate-markdown.sh
+      # - name: Run echo path
+      #   id: run_path
+      #   run: cd .github/ && ls && cd scripts && ls && sudo bash generate-markdown.sh
+     
+      # - uses: actions/upload-artifact@v2-preview
+      #   id: upload_artifacts
+      #   with:
+      #     name: cypress-screenshots
+      #     path: test/failures/*.png
+          
 
-    
-      # - name: Just empty comment
-      #   uses: peter-evans/find-comment@v1
-      #   id: fc
-      #   with:
-      #     issue-number: ${{ github.event.pull_request.number }}
-      #     comment-author: 'github-actions[bot]'
-      #     body-includes: This comment was written by a bot!
-
-      # - name: Make a comment
-      #   uses: peter-evans/create-or-update-comment@v2
-      #   body: ${{ steps.run_path.outputs.result }}
-      #   with:
-      #     token: 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 #${{ secrets.PAT }}
-      
-      #upload artifacts
-      # - uses: actions/upload-artifact@v3
-      #   with:
-      #     name: my-artifact
-      #     path: test/failures/
-      - uses: actions/upload-artifact@v2-preview
-        id: upload_artifacts
-        with:
-          name: cypress-screenshots
-          path: test/failures/*.png
           
       # - name: Upload a folder with multiple files
       #   uses: devicons/public-upload-to-imgur@main
@@ -99,18 +81,21 @@ jobs:
       #     reactions: eyes
 
 
-      # - name: Create or update comment
-      #   uses: peter-evans/create-or-update-comment@v2
-      #   with:
-      #     # body: ${{ steps.images_uploads.outputs.imgur_urls }}
-      #     # comment-id: ${{ steps.fc.outputs.comment-id }}
-      #     issue-number: 1 #${{ github.event.pull_request.number }}
-      #     body: |
-      #       Commit hello message
-      #       ${{ steps.run_path.outputs.result }}
-      #       ${{ steps.upload_artifacts.outputs.result }}
-      #     # token: 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 #${{ secrets.PAT }}
-      #     edit-mode: replace
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          # body: ${{ steps.images_uploads.outputs.imgur_urls }}
+          # comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: 1 #${{ github.event.pull_request.number }}
+          body: |
+            Commit hello message
+            ${{ steps.run_path.outputs.result }}
+            ${{ steps.upload_artifacts.outputs.result }}
+            ![fjhwfj](https://pbs.twimg.com/media/FVYIUHtVEAExkGa?format=jpg&name=medium)
+
+            <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+          # token: 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 #${{ secrets.PAT }}
+          edit-mode: replace
             
       - name: echo repo
         run: echo "$GITHUB.REPOSITORY"
