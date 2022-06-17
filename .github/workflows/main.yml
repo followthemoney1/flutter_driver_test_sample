@@ -91,19 +91,19 @@ jobs:
       #   with:
       #     path: test/failures/
       #     client_id: ${{secrets.IMGUR_CLIENT_ID}}
-      - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          comment-id: 322432 #${{ github.event.comment.id }}
-          reactions: eyes
+      # - name: Add reaction
+      #   uses: peter-evans/create-or-update-comment@v2
+      #   with:
+      #     comment-id: 322432 #${{ github.event.comment.id }}
+      #     reactions: eyes
 
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        id: fc
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: Build output
+      # - name: Find Comment
+      #   uses: peter-evans/find-comment@v2
+      #   id: fc
+      #   with:
+      #     issue-number: ${{ github.event.pull_request.number }}
+      #     comment-author: 'github-actions[bot]'
+      #     body-includes: Build output
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v2
