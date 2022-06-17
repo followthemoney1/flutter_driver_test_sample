@@ -96,6 +96,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v2
         with:
           # body: ${{ steps.images_uploads.outputs.imgur_urls }}
+          comment-id: ${{ github.event.comment.id }}
           body: |
             Commit hello message
           token: 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 #${{ secrets.PAT }}
