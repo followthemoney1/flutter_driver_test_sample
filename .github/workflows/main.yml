@@ -91,14 +91,23 @@ jobs:
       #   with:
       #     path: test/failures/
       #     client_id: ${{secrets.IMGUR_CLIENT_ID}}
-     
-      - name: Make a comment
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Build output
+
+      - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           # body: ${{ steps.images_uploads.outputs.imgur_urls }}
-          comment-id: ${{ github.event.comment.id }}
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: |
             Commit hello message
           token: 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 #${{ secrets.PAT }}
+          edit-mode: replace
             
         
