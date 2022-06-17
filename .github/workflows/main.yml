@@ -111,7 +111,13 @@ jobs:
             ![test4](~/test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
             ![test2](~/flutter_driver_test_sample/test/failures/flutter_demo_page_multiple_scenarios_isolatedDiff.png)
 
+          
            # <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
       
+       - name: Dump GitHub context
+         env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+         run: |
+          echo "$GITHUB_CONTEXT"
