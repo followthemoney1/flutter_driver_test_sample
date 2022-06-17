@@ -94,9 +94,9 @@ jobs:
       - name: Add reaction
         uses: peter-evans/create-or-update-comment@v2
         with:
-          comment-id: ${{ github.event.comment.id }}
+          comment-id: 322432 #${{ github.event.comment.id }}
           reactions: eyes
-          
+
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
