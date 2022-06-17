@@ -85,16 +85,17 @@ jobs:
           name: cypress-screenshots
           path: test/failures/*.png
           
-      - name: Upload a folder with multiple files
-        uses: devicons/public-upload-to-imgur@main
-        id: images_uploads
-        with:
-          path: test/failures/
-          client_id: ${{secrets.IMGUR_CLIENT_ID}}
+      # - name: Upload a folder with multiple files
+      #   uses: devicons/public-upload-to-imgur@main
+      #   id: images_uploads
+      #   with:
+      #     path: test/failures/
+      #     client_id: ${{secrets.IMGUR_CLIENT_ID}}
      
       - name: Make a comment
         uses: peter-evans/create-or-update-comment@v2
-        body: ${{ steps.images_uploads.outputs.imgur_urls }}
+        # body: ${{ steps.images_uploads.outputs.imgur_urls }}
+        body: Commit hello message
         with:
           token: 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 #${{ secrets.PAT }}
             
