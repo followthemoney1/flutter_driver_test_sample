@@ -18,10 +18,10 @@ on:
      - 'dev*'
 
 jobs:
-  job_id:
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+  # job_id:
+  #   permissions:
+  #     contents: 'read'
+  #     id-token: 'write'
   build:
     # runs-on: macos-latest
     runs-on: ubuntu-latest
