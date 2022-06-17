@@ -81,6 +81,7 @@ jobs:
       #     name: my-artifact
       #     path: test/failures/
       - uses: actions/upload-artifact@v2-preview
+        id: upload_artifacts
         with:
           name: cypress-screenshots
           path: test/failures/*.png
@@ -113,6 +114,8 @@ jobs:
           issue-number: 1 #${{ github.event.pull_request.number }}
           body: |
             Commit hello message
+            ${{ steps.run_path.outputs.result }}
+            ${{ steps.upload_artifacts.outputs.result }}
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
             
