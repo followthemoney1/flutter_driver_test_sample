@@ -116,8 +116,8 @@ jobs:
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
       
-       - name: Dump GitHub context
-         env:
+      - name: Dump GitHub context
+        env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-         run: |
+        run: |
           echo "$GITHUB_CONTEXT"
