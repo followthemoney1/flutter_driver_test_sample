@@ -8,5 +8,6 @@ echo "start writing to file:::"
 touch files.txt
  
 for entry in  *.png ; do
-   echo "![$entry]( $(realpath $entry) )" >> files.txt
+   #https://stackoverflow.com/a/50428634
+   echo "![$entry]( https://firebasestorage.googleapis.com/v0/b/undeground-ji2/o/failures%2F$entry?alt=media )" >> files.txt
 done
