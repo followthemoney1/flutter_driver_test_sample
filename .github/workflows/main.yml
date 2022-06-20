@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Update goldens
+      - name: Flutter test
         run: flutter test
       # - name: Run Integration Tests
       #   uses: reactivecircus/android-emulator-runner@v2
