@@ -14,7 +14,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 void main() {
   group('GoldenBuilder', () {
     const widget = MyHomePage(
-      title: '2222',
+      title: '3333',
     );
 
     GoldenToolkit.runWithConfiguration(
