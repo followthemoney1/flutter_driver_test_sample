@@ -31,24 +31,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Install Java
-      #   uses: actions/setup-java@v2
-      #   with:
-      #     distribution: 'zulu'
-      #     java-version: '11'
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
 
-      # - name: Install Flutter
-      #   uses: subosito/flutter-action@v2
-      #   with:
-      #     flutter-version: '3.0.1'
-      #     channel: 'stable'
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.1'
+          channel: 'stable'
       
-      # - name: Flutter Doctor
-      #   run: flutter doctor -v
+      - name: Flutter Doctor
+        run: flutter doctor -v
         
-      # - name: Install dependencies
-      #   run: flutter pub get
+      - name: Install dependencies
+        run: flutter pub get
 
+      - name: Update goldens
+        run: flutter test --update-goldens 
       # - name: Run Integration Tests
       #   uses: reactivecircus/android-emulator-runner@v2
       #   with:
@@ -104,7 +106,8 @@ jobs:
           # comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: 1 #${{ github.event.pull_request.number }}
           body: |
-            Commit hello message
+            Here some problem and here is your images:
+
             ${{ steps.run_path.outputs.body }}
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
