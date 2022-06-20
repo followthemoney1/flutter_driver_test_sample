@@ -11,3 +11,9 @@ for entry in  *.png ; do
    #https://stackoverflow.com/a/50428634
    echo "![$entry]( https://firebasestorage.googleapis.com/v0/b/undeground-ji2/o/failures%2F$entry?alt=media )" >> files.txt
 done
+
+body="$(cat files.txt)"
+body="${body//'%'/'%25'}"
+body="${body//$'\n'/'%0A'}"
+body="${body//$'\r'/'%0D'}" 
+echo "::set-output name=body::$body"

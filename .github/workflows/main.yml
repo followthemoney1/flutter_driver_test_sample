@@ -94,15 +94,6 @@ jobs:
         with:
           path: 'test/failures'
           destination: 'undeground-ji2/${{ github.event.head_commit.id }}'
-      
-      - name: Get comment body
-        id: get-comment-body
-        run: |
-          body="$(cat ~/flutter_driver_test_sample/test/failures/files.txt)"
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}" 
-          echo "::set-output name=body::$body"
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v2
@@ -112,7 +103,7 @@ jobs:
           issue-number: 1 #${{ github.event.pull_request.number }}
           body: |
             Commit hello message
-            ${{ steps.get-comment-body.outputs.body }}
+            ${{ steps.run_path.outputs.body }}
           
            # <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
           # token: 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 #${{ secrets.PAT }}
