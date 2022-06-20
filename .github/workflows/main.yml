@@ -106,8 +106,6 @@ jobs:
           body: |
             Commit hello message
             ${{ steps.run_path.outputs.body }}
-          
-           # <img width="300" alt="bunny" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
           # token: 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 #${{ secrets.PAT }}
           edit-mode: replace
       
