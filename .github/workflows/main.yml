@@ -51,17 +51,21 @@ jobs:
 
       - name: Flutter test
         run: flutter test
+
+      ######## For tests on real device
       # - name: Run Integration Tests
       #   uses: reactivecircus/android-emulator-runner@v2
       #   with:
       #     api-level: 31
       #     target: google_atd
       #     script: flutter drive --target=test_driver/main.dart --driver=test_driver/main_test.dart
+      #######
 
       - name: Run echo path
         id: run_path
         run: cd .github/ && ls && cd scripts && ls && sudo bash generate-markdown.sh
-     
+
+      ######## If we need to upload artifacts as zip
       # - uses: actions/upload-artifact@v2-preview
       #   id: upload_artifacts
       #   with:
@@ -71,8 +75,10 @@ jobs:
       # - name: Download File Locally
       #   run: |
       #     wget https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+      ########
 
       - id: 'auth'
+        if: ${{ steps.run_path.outputs.body != '' }} 
         uses: 'google-github-actions/auth@v0'
         with:
           # workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
@@ -93,6 +99,7 @@ jobs:
 
 
       - name: Upload files to GS
+        if: ${{ steps.run_path.outputs.body != '' }} 
         id: 'upload-folder'
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
@@ -100,6 +107,7 @@ jobs:
           destination: 'undeground-ji2/${{ github.event.head_commit.id }}'
 
       - name: Create or update comment
+        if: ${{ steps.run_path.outputs.body != '' }} 
         uses: peter-evans/create-or-update-comment@v2
         with:
           # body: ${{ steps.images_uploads.outputs.imgur_urls }}
@@ -113,6 +121,7 @@ jobs:
           edit-mode: replace
       
       - name: Dump GitHub context
+        if: ${{ steps.run_path.outputs.body != '' }} 
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
