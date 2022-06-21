@@ -2,7 +2,7 @@ name: Flutter WorkFlow
 
 on:
   push:
-   branches: [dev_diachneko]
+   branches: [dev,dev_diachneko]
     
   pull_request: 
     types: [opened, edited, reopened, synchronize]
