@@ -10,8 +10,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_driver_test_sample/main.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:integration_test/integration_test.dart';
 
 void main() {
+  setUpAll(() {});
   group('GoldenBuilder', () {
     const widget = MyHomePage(
       title: '3234',
@@ -32,11 +34,8 @@ void main() {
               name: 'default page',
             )
             ..addScenario(
-              widget: const MediaQuery(
-                data: MediaQueryData(textScaleFactor: 44444),
-                child: MyHomePage(
-                  title: 'Widget 2',
-                ),
+              widget: const MyHomePage(
+                title: 'Widget 2',
               ),
               name: 'increase',
               onCreate: (key) async {
@@ -54,6 +53,10 @@ void main() {
 
                 // Verify that our counter has incremented.
                 expect(find.text('1'), findsOneWidget);
+
+                tester.takeException();
+
+                await tester.pumpAndSettle();
               },
             );
           // Build our app and trigger a frame.
@@ -64,5 +67,10 @@ void main() {
       },
       config: GoldenToolkit.configuration.copyWith(enableRealShadows: true),
     );
+
+    testWidgets('Golden test', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      await expectLater(find.byType(MyApp), matchesGoldenFile('goldens/main.png'));
+    });
   });
 }
