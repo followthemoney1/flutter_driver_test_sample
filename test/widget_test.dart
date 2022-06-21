@@ -32,7 +32,12 @@ void main() {
               name: 'default page',
             )
             ..addScenario(
-              widget: widget,
+              widget: const MediaQuery(
+                data: MediaQueryData(textScaleFactor: 44444),
+                child: MyHomePage(
+                  title: 'Widget 2',
+                ),
+              ),
               name: 'increase',
               onCreate: (key) async {
                 final button = find.descendant(
@@ -49,7 +54,6 @@ void main() {
 
                 // Verify that our counter has incremented.
                 expect(find.text('1'), findsOneWidget);
-                await tester.tap(button);
               },
             );
           // Build our app and trigger a frame.
