@@ -49,6 +49,7 @@ void main() {
 
                 // Verify that our counter has incremented.
                 expect(find.text('1'), findsOneWidget);
+                await tester.tap(button);
               },
             );
           // Build our app and trigger a frame.

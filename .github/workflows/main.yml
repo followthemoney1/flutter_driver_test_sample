@@ -2,7 +2,7 @@ name: Flutter WorkFlow
 
 on:
   push:
-   branches: [dev]
+   branches: [dev_diachneko]
     
   pull_request: 
     types: [opened, edited, reopened, synchronize]
@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Update goldens
+      - name: Flutter test
         run: flutter test
       # - name: Run Integration Tests
       #   uses: reactivecircus/android-emulator-runner@v2
