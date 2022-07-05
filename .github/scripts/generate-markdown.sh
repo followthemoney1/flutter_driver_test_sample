@@ -1,0 +1,27 @@
+echo "Script start"
+DIR="../../test/failures"
+
+if [ -d "$DIR" ]; then
+  ### Take action if $DIR exists ###
+   echo "Screenshoot dir exist ${DIR}... Macking a file"
+   touch files.txt
+   
+   for entry in  *.png ; do
+      #https://stackoverflow.com/a/50428634
+      echo "![$entry]( https://firebasestorage.googleapis.com/v0/b/undeground-ji2/o/failures%2F$entry?alt=media )" >> files.txt
+      #or
+      # echo `<img width="300" alt="$entry" src="https://firebasestorage.googleapis.com/v0/b/undeground-ji2/o/failures%2F$entry?alt=media">` >> files.txt
+   done
+
+   echo "fff"
+   body="$(cat files.txt)"
+   body="${body//'%'/'%25'}"
+   body="${body//$'\n'/'%0A'}"
+   body="${body//$'\r'/'%0D'}" 
+   echo "body ${body}"
+   echo "::set-output name=body::$body"
+
+else
+   ###  Control will jump here if $DIR does NOT exists ###
+   echo "Error: ${DIR} not found. No screenshoots."
+fi
